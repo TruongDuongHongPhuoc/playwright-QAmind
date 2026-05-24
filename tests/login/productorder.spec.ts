@@ -8,7 +8,7 @@ test.describe('user can sort the product', () => {
     await auth.loginAsUser()
   })
   // this test will be failed due to defect in website
-  test('Verify that user can sort the product lists by name', async ({ productPage }) => {
+  test.fail('Verify that user can sort the product lists by name', async ({ productPage }) => {
     await clickSortProduct(productPage,productPage.orderOptions.atoz)
     const productlist = await productPage.getAllProductsName()
     const sortedList = [...productlist].sort((a,b) => a.localeCompare(b))

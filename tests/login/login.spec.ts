@@ -8,7 +8,7 @@ test.describe('Login Feature', () => {
     await loginPage.fill_email(process.env.EMAIL!)
     await loginPage.fill_password(process.env.PASSWORD!)
     await loginPage.click_login()
-
+    await loginPage.wait_for_webidle()
     await expect(page).toHaveURL('/ecommerce')
   })
 

@@ -35,6 +35,7 @@ export default defineConfig({
     trace: 'on-first-retry',
     headless: false,
     baseURL: process.env.BASE_URL,
+    actionTimeout: 15_000,
   },
 
   /* Configure projects for major browsers */

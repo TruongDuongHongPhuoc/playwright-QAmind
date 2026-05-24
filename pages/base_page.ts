@@ -39,4 +39,8 @@ export abstract class BasePage {
         const text = await locator.textContent()
         return text
     }
+
+    async wait_for_webidle(){
+        await this.page.waitForLoadState('networkidle')
+    }
 }

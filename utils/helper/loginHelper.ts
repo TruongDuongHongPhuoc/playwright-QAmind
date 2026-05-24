@@ -10,4 +10,12 @@ export class AuthHelper {
         await this.loginPage.click_login()
         await this.loginPage.waitForLoggedIn()
     }
+
+    async login(userName: string, password: string){
+        await this.loginPage.goto()
+        await this.loginPage.fill_email(userName)
+        await this.loginPage.fill_password(password)
+        await this.loginPage.click_login()
+        await this.loginPage.waitForLoggedIn()
+    }
 }
