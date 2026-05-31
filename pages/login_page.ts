@@ -1,13 +1,15 @@
 import { Page, Locator, expect } from '@playwright/test'
 import { BasePage } from './base_page'
+import { Routes } from '../constant/routes'
+
 export class LoginPage extends BasePage{
 
-    protected emailInput: Locator
-    protected passwordInput: Locator
-    protected loginButton: Locator
-    protected showPassButton: Locator
-    protected emailErrorText: Locator
-    protected passwordErrorText: Locator
+    readonly emailInput: Locator
+    readonly passwordInput: Locator
+    readonly loginButton: Locator
+    readonly showPassButton: Locator
+    readonly emailErrorText: Locator
+    readonly passwordErrorText: Locator
 
     readonly errorTexts = {
         requiredEmail: 'Email is a required field',
@@ -28,61 +30,29 @@ export class LoginPage extends BasePage{
     }
 
     async goto(){
-        await this.page.goto(process.env.BASE_URL!)
-    }
-
-    //fill email
-    async fill_email(email: string){
-        await this.input(this.emailInput,email)
-    }
-    
-    // clear email field
-    async clear_email(){
-        await this.clear_input(this.emailInput)
-    }
-
-    // Get email error message
-    async get_error_email_message(): Promise<string|null>{
-        return await this.get_text(this.emailErrorText)
-    }
-
-    // get password error message
-    async get_error_password_message(): Promise<string|null>{
-        return await this.get_text(this.passwordErrorText)
-    }
-    
-    // fill password
-    async fill_password(password: string){
-        await this.passwordInput.fill(password)
-    }
-
-    // clear password
-    async clear_password(){
-        await this.clear_input(this.passwordInput)
-    }
-
-    //click show password (eye icon)
-    async show_pass(){
-        await this.click(this.showPassButton)
+        await this.page.goto(process.env.BASE_URL!+Routes.loginPage)
     }
 
     //check if password is shown by check the type
-    async is_password_show(): Promise<boolean>{
-        const typeOfPass = await this.get_attribute(this.emailInput,'type')
-        if(typeOfPass === 'text'){
-            return true
-        }else{
-            return false
-        }
-    }
-
-    // click login button
-    async click_login(){
-        await this.loginButton.click()
+    async isPasswordShow(): Promise<boolean>{
+        const typeOfPass = await this.passwordInput.getAttribute('type')
+        return typeOfPass === 'text'
     }
 
     async waitForLoggedIn(){
-        await this.page.waitForURL('/ecommerce')
+        await this.page.waitForURL(Routes.productPage)
+    }
+
+    async login(userName: string, password: string){
+        await this.goto()
+        await this.emailInput.fill(userName)
+        await this.passwordInput.fill(password)
+        await this.loginButton.click()
+    }
+
+    async clearLoginFields(){
+        await this.emailInput.clear()
+        await this.passwordInput.clear()
     }
 
 }

@@ -1,7 +1,7 @@
 import { Locator } from "@playwright/test";
 import { Product } from "../models/product";
 import { AuthHelper } from "../utils/helper/loginHelper";
-import { GetNumberFromString } from "../utils/helper/helper";
+import { getNumberFromString } from "../utils/helper/helper";
 
 export class CartProductCard {
 
@@ -39,9 +39,21 @@ export class CartProductCard {
         return this.root.locator('div.mt-3 button')
     }
 
+    async increaseQuantityProductBy(index:number){
+        for(let i = 0; i < index; i++){
+            await this.increaseQuantityButton.click()
+        }
+    }
+
+    async decreaseQuantityProductBy(index:number){
+        for(let i = 0; i < index; i++){
+            await this.reduceQuantityButton.click()
+        }
+    }
+
     async toProduct(): Promise<Product> {
         const totalPriceText = await this.totalPrice.textContent() ?? ''
-        const totalPriceNumber = await GetNumberFromString(totalPriceText)
+        const totalPriceNumber = await getNumberFromString(totalPriceText)
 
         return {
             name:

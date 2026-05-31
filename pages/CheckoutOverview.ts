@@ -1,5 +1,4 @@
 import { Locator, Page } from "@playwright/test";
-import { AbtractProductPage } from "./abtract_product_page";
 import { BasePage } from "./base_page";
 import { CartProductCard } from "../components/cart_product_card";
 
@@ -23,12 +22,20 @@ export class CheckoutOverviewPage extends BasePage{
         this.continueShoppingButton = page.locator('div#checkout-complete button')
     }
 
-    async get_Product_Card_By_Name(productName:string):Promise<CartProductCard>{
+    async getProductCardByName(productName:string):Promise<CartProductCard>{
         const root = await this.page.locator('div.cart-list > div').filter({
             has: this.page.getByText(productName),
         });
         return new CartProductCard(root)
     }
+
+    async finishOrder(){
+        await this.finishButton.click()
+        await this.page.waitForURL('/ecommerce/checkout-complete')
+    }
+
+
+    
 
 
 }

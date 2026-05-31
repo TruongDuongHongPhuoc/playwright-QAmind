@@ -1,7 +1,8 @@
 import { Locator, Page } from "@playwright/test";
-import { AbtractProductPage } from "./abtract_product_page";
+import { AbstractProductPage } from "./abstract_product_page";
+import { Route } from "@playwright/test";
 
-export class FavoritePage extends AbtractProductPage{
+export class FavoritePage extends AbstractProductPage{
 
     userNameSpan: Locator
     favoritesMenuItem: Locator
@@ -13,17 +14,5 @@ export class FavoritePage extends AbtractProductPage{
         this.favoritesMenuItem = page.locator('div[role="group"] div[role="menuitem"]')
         this.noFavProductText = page.locator('h2.text-xl')
     }
-
-    async goto(){
-        await this.page.goto("https://practice.qabrains.com/ecommerce/favorites")
-    }
-
-    async navigateTo(){
-        await this.click(this.userNameSpan)
-        await this.click(this.favoritesMenuItem)
-    }
-
-    
-
     
 }

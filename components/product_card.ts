@@ -26,15 +26,11 @@ export class ProductCard {
     }
 
     async toProduct(): Promise<Product> {
+        const name = (await this.name.textContent()) ?.trim() ?? ''
+        const price = Number((await this.price.textContent())?.replace('$',''))
         return {
-            name:
-              (await this.name.textContent())
-              ?.trim() ?? '',
-
-            price: Number(
-              (await this.price.textContent())
-              ?.replace('$','')
-            )
+            name,
+            price
         }
     }
 }
