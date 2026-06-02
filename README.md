@@ -1,9 +1,11 @@
 # QA Brains E-Commerce Automation Framework
 
 Tested website: https://practice.qabrains.com/ecommerce/login
+
 Manual test case: https://docs.google.com/spreadsheets/d/1ezeTaCJ7G47nhbJtWm3Mne2L7QPOiWwZruWwdgX3aRc/edit?usp=sharing
+
 Test script can be found in Folder test > E2E
-Test report HTML: 
+
 
 ## Introduction
 
