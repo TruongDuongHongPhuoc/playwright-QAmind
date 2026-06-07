@@ -1,0 +1,48 @@
+[
+  {
+    "testTitle": "Verify user can checkout with single product",
+    "products": [
+      {
+        "name": "Sample Shirt Name",
+        "quantity": 1
+      }
+    ],
+    "customer": {
+      "firstName": "John",
+      "lastName": "Doe",
+      "zipCode": "123456"
+    },
+    "expected": {
+      "itemTotal": 49.99,
+      "tax": 2.5,
+      "finalTotal": 52.49
+    }
+  },
+  {
+    "testTitle": "Verify user can checkout with multiple products and different quantities",
+    "products": [
+      {
+        "name": "Sample Shoe Name",
+        "quantity": 3
+      },
+      {
+        "name": "Sample Jacket Name",
+        "quantity": 2
+      },
+      {
+        "name": "Sample Sunglass Name",
+        "quantity": 1
+      }
+    ],
+    "customer": {
+      "firstName": "Janne",
+      "lastName": "Le'arch",
+      "zipCode": "911111"
+    },
+    "expected": {
+      "itemTotal": 782.45,
+      "tax": 39.12,
+      "finalTotal": 821.57
+    }
+  }
+]
