@@ -4,6 +4,7 @@ import { Route } from '@playwright/test'
 import { Product } from '../../models/product'
 import { CheckOutInformationPage } from '../../pages/CheckoutInformation'
 import { Routes } from '../../constant/routes'
+import { updateProductQuantity } from '../../utils/helper/helper'
 
 
 test.describe('User can process check out', () => {
@@ -39,7 +40,7 @@ test.describe('User can process check out', () => {
 
     const prod1CartObj = await prod1Cart.toProduct()
     const prod2CartObj = await prod2Cart.toProduct()
-    prod2CartObj.quantity = 4;
+    
     
     // Click checkout
     await cartPage.navigateToCheckoutInformation()

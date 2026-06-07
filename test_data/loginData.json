@@ -1,0 +1,110 @@
+[
+  {
+    "Test_title": "Verify that user can login with valid credential",
+    "Username": "test@qabrains.com",
+    "Password": "Password123",
+    "Expected_Status": "Success",
+    "Expected_Email_Validate": "",
+    "Expected_Password_Validate": "",
+    "Expected_Toast_Message": "credentials matched: Successfully logged in."
+  },
+  {
+    "Test_title": "Verify that user can login with valid 2 credential",
+    "Username": "practice@qabrains.com",
+    "Password": "Password123",
+    "Expected_Status": "Success",
+    "Expected_Email_Validate": "",
+    "Expected_Password_Validate": "",
+    "Expected_Toast_Message": "credentials matched: Successfully logged in."
+  },
+  {
+    "Test_title": "Verify that user can login with valid 3 credential",
+    "Username": "student@qabrains.com",
+    "Password": "Password123",
+    "Expected_Status": "Success",
+    "Expected_Email_Validate": "",
+    "Expected_Password_Validate": "",
+    "Expected_Toast_Message": "credentials matched: Successfully logged in."
+  },
+  {
+    "Test_title": "Verify that user can login with valid credential with extra space in head",
+    "Username": "test@qabrains.com",
+    "Password": "Password123",
+    "Expected_Status": "Success",
+    "Expected_Email_Validate": "",
+    "Expected_Password_Validate": "",
+    "Expected_Toast_Message": "credentials matched: Successfully logged in."
+  },
+  {
+    "Test_title": "Verify that user can login with valid credential with extra space in tail",
+    "Username": "test@qabrains.com",
+    "Password": "Password123",
+    "Expected_Status": "Success",
+    "Expected_Email_Validate": "",
+    "Expected_Password_Validate": "",
+    "Expected_Toast_Message": "credentials matched: Successfully logged in."
+  },
+  {
+    "Test_title": "Verify that user cannot login with incorrect username",
+    "Username": "test1@qabrains.com",
+    "Password": "Password123",
+    "Expected_Status": "Error",
+    "Expected_Email_Validate": "Username is incorrect.",
+    "Expected_Password_Validate": "",
+    "Expected_Toast_Message": "Password matched but email is incorrect."
+  },
+  {
+    "Test_title": "Verify that user cannot login with incorrect password",
+    "Username": "test@qabrains.com",
+    "Password": "Password1234",
+    "Expected_Status": "Error",
+    "Expected_Email_Validate": "",
+    "Expected_Password_Validate": "Password is incorrect.",
+    "Expected_Toast_Message": "Username matched but password is incorrect."
+  },
+  {
+    "Test_title": "Verify that user cannot login with incorrect lowercase password",
+    "Username": "test@qabrains.com",
+    "Password": "password123",
+    "Expected_Status": "Error",
+    "Expected_Email_Validate": "",
+    "Expected_Password_Validate": "Password is incorrect.",
+    "Expected_Toast_Message": "Username matched but password is incorrect."
+  },
+  {
+    "Test_title": "Verify that user cannot login with incorrect uppercase password",
+    "Username": "test@qabrains.com",
+    "Password": "PaSSword123",
+    "Expected_Status": "Error",
+    "Expected_Email_Validate": "",
+    "Expected_Password_Validate": "Password is incorrect.",
+    "Expected_Toast_Message": "Username matched but password is incorrect."
+  },
+  {
+    "Test_title": "Verify that user cannot login with empty email",
+    "Username": "",
+    "Password": "Password123",
+    "Expected_Status": "Error",
+    "Expected_Email_Validate": "Email is a required field",
+    "Expected_Password_Validate": "",
+    "Expected_Toast_Message": ""
+  },
+  {
+    "Test_title": "Verify that user cannot login with empty password",
+    "Username": "test@qabrains.com",
+    "Password": "",
+    "Expected_Status": "Error",
+    "Expected_Email_Validate": "",
+    "Expected_Password_Validate": "Password is a required field",
+    "Expected_Toast_Message": ""
+  },
+  {
+    "Test_title": "Verify that user cannot login with empty credential",
+    "Username": "",
+    "Password": "",
+    "Expected_Status": "Error",
+    "Expected_Email_Validate": "Email is a required field",
+    "Expected_Password_Validate": "Password is a required field",
+    "Expected_Toast_Message": ""
+  }
+]

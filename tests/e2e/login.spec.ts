@@ -1,6 +1,5 @@
 import { Routes } from '../../constant/routes'
 import { test, expect } from '../../fixtures/index.fixture'
-import { Route } from '@playwright/test'
 
 test.describe('Login Feature', () => {
 

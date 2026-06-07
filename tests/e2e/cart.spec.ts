@@ -113,7 +113,6 @@ test.describe("User can add/remove product to cart",() => {
 
         // Navigate to cart
         await cartPage.navigateTo()
-        
 
         // Click removes under a product
         const prod1Cart = await cartPage.getProductCardByName(prod1Name)
@@ -283,7 +282,6 @@ test.describe("User can add/remove product to cart",() => {
         // Navigate to cart page
         await cartPage.navigateTo()
         
-
         const prod1Cart = await cartPage.getProductCardByName(prod1Name)
         await expect(prod1Cart.name).toHaveText(prod1Name)
     })

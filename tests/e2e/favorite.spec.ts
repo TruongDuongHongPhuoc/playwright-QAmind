@@ -13,6 +13,7 @@ test.describe("User can add/remove favorite product", () => {
         const expectedFavoriteProduct: Product[] = []
         const prod1Name = 'Sample Shirt Name'
         const prod2Name = 'Sample T-Shirt Name'
+        
         // Click into heart icon of a product
         const productCard = await productPage.getProductCardByName(prod1Name)
         await productCard.favoriteButton.click()
@@ -28,8 +29,7 @@ test.describe("User can add/remove favorite product", () => {
         expectedFavoriteProduct.push(FavProduct1)
 
         // Click an other product image
-        const productCard1 = await productPage.getProductCardByName(prod2Name)
-        await productCard1.name.click()
+        await productPage.navigateToProductDetail(prod2Name)
         await expect(productDetailPage.productNameSpan).toBeVisible()
         
         // Click heart icon
@@ -57,13 +57,13 @@ test.describe("User can add/remove favorite product", () => {
 
     test('Verify that user can remove favorite product', async ({auth, productPage, favoritePage, productDetailPage, page}) => {
         //precondition
-        const product1 = 'Sample Shirt Name';
-        const product2 = 'Sample Shoe Name';
-        const product3 = 'Sample Jacket Name';
+        const prod1Name = 'Sample Shirt Name';
+        const prod2Name = 'Sample Shoe Name';
+        const prod3Name = 'Sample Jacket Name';
 
-        const prod1Card = await productPage.getProductCardByName(product1)
-        let prod2Card = await productPage.getProductCardByName(product2)
-        let prod3Card = await productPage.getProductCardByName(product3)
+        const prod1Card = await productPage.getProductCardByName(prod1Name)
+        let prod2Card = await productPage.getProductCardByName(prod2Name)
+        let prod3Card = await productPage.getProductCardByName(prod3Name)
         
         // Add favorites
         await prod1Card.favoriteButton.click()
@@ -78,24 +78,24 @@ test.describe("User can add/remove favorite product", () => {
         await prod1Card.favoriteButton.click()
 
         // verify product 1 not present in favorite page
-        expect(await favoritePage.getAllProductsName()).not.toContain(product1);
+        expect(await favoritePage.getAllProductsName()).not.toContain(prod1Name);
 
         // Remove product 2 from detail page
-        prod2Card = await productPage.getProductCardByName(product2)
-        await prod2Card.name.click()
+        prod2Card = await productPage.getProductCardByName(prod2Name)
+        await productPage.navigateToProductDetail(prod2Name)
         await expect(productDetailPage.productNameSpan).toBeVisible();
         await productDetailPage.favoriteButton.click()
 
         await favoritePage.headerComponent.navigateToFavoritePage();
         await expect(page).toHaveURL(Routes.favoritePage);
 
-        expect(await favoritePage.getAllProductsName()).not.toContain(product2);
+        expect(await favoritePage.getAllProductsName()).not.toContain(prod2Name);
 
         // Remove product 3
-        prod3Card = await productPage.getProductCardByName(product3)
+        prod3Card = await productPage.getProductCardByName(prod3Name)
         await prod3Card.favoriteButton.click()
 
-        expect(await favoritePage.getAllProductsName()).not.toContain(product3);
+        expect(await favoritePage.getAllProductsName()).not.toContain(prod3Name);
 
         await expect(favoritePage.noFavProductText).toBeVisible();
     })
