@@ -2,7 +2,6 @@ import { Routes } from '../../constant/routes'
 import { test, expect } from '../../fixtures/index.fixture'
 import loginTestData from '../../test_data/loginData.json'
 import cartTestData from '../../test_data/cartData.json'
-import { waitForDebugger } from 'node:inspector';
 import { getNumberFromString } from '../../utils/helper/helper';
 
 loginTestData.forEach((row) => {
