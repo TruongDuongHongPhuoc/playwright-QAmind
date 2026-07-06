@@ -2,7 +2,6 @@ import { Routes } from '../../constant/routes'
 import { test, expect } from '../../fixtures/index.fixture'
 import loginTestData from '../../test_data/loginData.json'
 import cartTestData from '../../test_data/cartData.json'
-import { getNumberFromString } from '../../utils/helper/helper';
 
 loginTestData.forEach((row) => {
 
@@ -13,9 +12,12 @@ loginTestData.forEach((row) => {
 //     "Expected_Email_Validate": "",
 //     "Expected_Password_Validate": "",
 //     "Expected_Toast_Message": "credentials matched: Successfully logged in."
+
     test(`Login - ${row.Test_title}`, async ({ loginPage,page }) => {
         await loginPage.login(row.Username,row.Password)
-        
+        // await page.goto(Routes.productPage)
+        // await page.waitForURL(Routes.productPage)
+        // await loginPage.login(row.Username,row.Password)
         if (row.Expected_Status === 'Success') {
             await expect(page).toHaveURL(Routes.productPage);
         } else {

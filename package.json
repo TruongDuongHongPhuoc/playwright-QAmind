@@ -2,19 +2,22 @@
   "name": "qamind-project",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {},
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
     "@playwright/test": "^1.59.1",
-    "@types/node": "^25.6.0"
+    "@types/node": "^25.9.4"
   },
   "dependencies": {
     "csv": "^6.5.1",
     "csvtojson": "^2.0.14",
     "dotenv": "^17.4.2",
     "parser": "^0.1.4"
+  },
+  "scripts": {
+    "test:local": "cross-env ENV=local playwright test",
+    "test:demo": "cross-env ENV=prod playwright test"
   }
 }

@@ -41,7 +41,6 @@ export abstract class AbstractProductPage extends BasePage{
     }
 
     //common
-
     async goto(){
         await this.page.goto('https://practice.qabrains.com/ecommerce')
     }
