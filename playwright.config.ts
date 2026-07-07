@@ -37,8 +37,7 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
-    headless: false,
-    baseURL: process.env.BASE_URL,
+    headless: !!process.env.CI,
     actionTimeout: 15_000,
   },
   expect:{
@@ -48,8 +47,23 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      name: 'ecommerce',
+      testMatch: [
+        /tests\/e2e\/.*\.spec\.ts/,
+        /tests\/DDT\/.*\.spec\.ts/,
+      ],
+      use: {
+        ...devices['Desktop Chrome'],
+        baseURL: process.env.ECOMMERCE_BASE_URL,
+      },
+    },
+    {
+      name: 'local',
+      testMatch: /tests\/local\/.*\.spec\.ts/,
+      use: {
+        ...devices['Desktop Chrome'],
+        baseURL: process.env.LOCAL_BASE_URL,
+      },
     }
 
     // {

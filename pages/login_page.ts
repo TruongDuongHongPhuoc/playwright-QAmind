@@ -30,7 +30,7 @@ export class LoginPage extends BasePage{
     }
 
     async goto(){
-        await this.page.goto(process.env.BASE_URL!+Routes.loginPage)
+        await this.page.goto(Routes.loginPage)
     }
 
     //check if password is shown by check the type

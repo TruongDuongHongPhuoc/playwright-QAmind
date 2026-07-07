@@ -1,5 +1,6 @@
 import { Locator } from "@playwright/test";
 import { Course } from "../../models/local_models/course";
+import { getNumberFromString } from "../../utils/helper/helper";
 
 export class LocalCourseRow {
 
@@ -31,6 +32,16 @@ export class LocalCourseRow {
 
     get deleteButton(){
         return this.root.locator('form button[class="danger"]')
+    }
+
+    async getCourseID(): Promise<number>{
+        const href = await this.editButton.getAttribute("href");
+
+        if (!href) {
+            throw new Error("Edit button href not found");
+        }
+
+        return getNumberFromString(href);
     }
 
     async toCourse(): Promise<Course> {

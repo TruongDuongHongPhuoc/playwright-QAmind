@@ -57,7 +57,7 @@ export class LocalDashboardPage extends LocalBasePage{
 
     async navigateToHelpCenterPage(){
         await this.iframeDemoButton.click()
-        await this.page.waitForURL(LocalRoutes.helpCenterpage)
+        await this.page.waitForURL(LocalRoutes.helpCenterPage)
     }
 
     async navigateToPlayGroundPage(){

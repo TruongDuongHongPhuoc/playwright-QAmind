@@ -6,12 +6,14 @@ import { LocalApprovalPage } from '../../pages/local_page/L_approval_page'
 import { LocalCourseListPage } from '../../pages/local_page/L_courselist_page'
 import { LocalDatePage } from '../../pages/local_page/L_date_page'
 import { LocalTablePage, LocalTableRowInstance } from '../../pages/local_page/L_table_page'
-import { DownloadHepler } from '../../utils/helper/downloadHepler'
+import { DownloadHelper } from '../../utils/helper/downloadHepler'
 import { getTestFilePath, readCsvFile } from '../../utils/helper/helper'
 import { LocalDashboardPage } from '../../pages/local_page/L_dashboard_page'
 
+
 test.describe('Course module', ()=>{
-    test('Verify Author can create course, Admin can update and approve course, User can view approved course',async({browser})=>{
+    test('Verify Author can create course, Admin can update and approve course, User can view approved course',async({localLoginPage,apisession,browser})=>{
+        
         // Login as Admin in a tab
         const adminTab = await CustomSession.create(browser)
 
@@ -40,7 +42,7 @@ test.describe('Course module', ()=>{
         await authorTab.dashboardPage.navigateToCreateCoursePage()
 
         // Create course "Playwright Masterclass"
-        const courseTitle = "Playwright Masterclass"
+        const courseTitle = "Playwright Masterclass"+ Date.now()
         const courseDescription = "Description of the playwright masterclass"
 
         await authorTab.createCoursePage.courseForm.fill(courseTitle,courseDescription)
@@ -51,6 +53,7 @@ test.describe('Course module', ()=>{
         await expect(authorTab.listCoursePage.flash).toHaveText(authorTab.listCoursePage.flashNotification.courseCreateSuccess)
         
         const authorTabCourseInstance = await authorTab.listCoursePage.getCourseRowBy(courseTitle,courseDescription)
+        const authorCourseID = await authorTabCourseInstance.getCourseID()
         await expect(authorTabCourseInstance.root).toBeVisible()
 
         // Admin Open Course List
@@ -88,6 +91,11 @@ test.describe('Course module', ()=>{
         const readerTabCourseInstanceEdited = await readerTab.listCoursePage.getCourseRowBy(courseTitle,courseDescriptionEdited)
         await expect(readerTabCourseInstanceEdited.root).toBeVisible() 
         await expect(readerTabCourseInstanceEdited.status).toHaveText('Approved')
+
+        //tear down
+        ////init API tear down
+        await apisession.authAPI.login(process.env.LOCAL_ADMIN_EMAIL!,process.env.LOCAL_ADMIN_PASSWORD!)
+        await apisession.courseAPI.deleteCourse(authorCourseID)
 
         await authorTab.close()
         await adminTab.close()
@@ -461,7 +469,7 @@ test.describe('Course module', ()=>{
 
         //open modal
         const fileName = Date.now()+"users.csv"
-        const downloadedFilePath = await DownloadHepler.Download(page,localPlayGroundPage.downloadCSVButton,fileName,testInfo)
+        const downloadedFilePath = await DownloadHelper.Download(page,localPlayGroundPage.downloadCSVButton,fileName,testInfo)
         const downloadedFileContent = await readCsvFile(downloadedFilePath)
 
         await expect(downloadedFileContent).toContain("Chloe Smith")

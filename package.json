@@ -11,13 +11,18 @@
     "@types/node": "^25.9.4"
   },
   "dependencies": {
+    "cross-env": "^10.1.0",
     "csv": "^6.5.1",
     "csvtojson": "^2.0.14",
     "dotenv": "^17.4.2",
     "parser": "^0.1.4"
   },
   "scripts": {
-    "test:local": "cross-env ENV=local playwright test",
-    "test:demo": "cross-env ENV=prod playwright test"
+    "test:ecommerce": "cross-env ENV=prod playwright test --project=ecommerce",
+    "test:ecommerce:ui": "cross-env ENV=prod playwright test --project=ecommerce --ui",
+    "test:local": "cross-env ENV=local playwright test --project=local",
+    "test:local:ui": "cross-env ENV=local playwright test --project=local --ui",
+    "test:all": "cross-env ENV=prod playwright test",
+    "test:demo": "npm run test:ecommerce"
   }
 }

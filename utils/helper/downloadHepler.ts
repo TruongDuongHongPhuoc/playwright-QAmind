@@ -5,7 +5,7 @@ import { getDownloadPath } from "./helper";
 import * as fs from "node:fs";
 import path from "path";
 
-export class DownloadHepler {
+export class DownloadHelper {
     
     static async Download(page: Page, triggerButton: Locator, fileName: string, testInfo: TestInfo): Promise<string> {
         const downloadPromise = page.waitForEvent('download')

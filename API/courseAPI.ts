@@ -10,4 +10,8 @@ export class CourseAPI extends BaseApi{
 
         return await this.request.post("http://localhost:5000/api/courses", { data })
     }
+
+    async deleteCourse(id:number){
+        return await this.request.delete(`http://localhost:5000/course/${id}`)
+    }
 }
