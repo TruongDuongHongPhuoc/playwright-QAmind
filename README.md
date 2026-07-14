@@ -1,19 +1,19 @@
-# QAMind Playwright Automation Framework
+# QAMind Playwright Automation
 
-Playwright + TypeScript automation framework built as a learning-focused QA automation project. The repository covers two practice application domains:
+Playwright + TypeScript automation code built as a learning-focused QA automation project. The repository covers two practice application domains:
 
 - Ecommerce practice app: `https://practice.qabrains.com/ecommerce`
 - Local practice app: `http://localhost:5000`
 
-The project is designed to practice framework architecture, Page Object Model, component objects, fixtures, data-driven tests, API-assisted setup/teardown, and multi-role browser scenarios.
+The project is designed to practice code architecture, Page Object Model, component objects, fixtures, data-driven tests, API-assisted setup/teardown, and multi-role browser scenarios.
 
 ## Project Intent
 
-This repository is not only a collection of automated tests. It is also a framework design exercise.
+This repository is not only a collection of automated tests. It is also a code design exercise.
 
 The main goal is to demonstrate how a QA automation project can evolve from simple Playwright tests into a more organized structure with reusable objects, environment separation, API support, and readable test flows.
 
-Some decisions in this project are intentionally pragmatic because the applications under test are practice applications. For example, the framework uses CSS selectors in many places because stable `data-testid` attributes are not consistently available. The README documents these tradeoffs so reviewers can understand the reasoning behind the current implementation and the planned direction for improvement.
+Some decisions in this project are intentionally pragmatic because the applications under test are practice applications. For example, the code uses CSS selectors in many places because stable `data-testid` attributes are not consistently available. The README documents these tradeoffs so reviewers can understand the reasoning behind the current implementation and the planned direction for improvement.
 
 ## Tech Stack
 
@@ -49,7 +49,7 @@ Some decisions in this project are intentionally pragmatic because the applicati
 
 ## Environment Design
 
-The framework separates application paths from environment domains.
+The code separates application paths from environment domains.
 
 - `constant/routes.ts` stores relative paths such as `/login` and `/ecommerce/cart`.
 - `playwright.config.ts` assigns a `baseURL` per Playwright project.
@@ -165,7 +165,7 @@ Local practice app:
 - Help center iframe interaction
 - Modal, toast, dropdown, file upload, download, and new tab scenarios
 
-## Framework Patterns
+## code Patterns
 
 The project currently uses:
 
@@ -183,7 +183,7 @@ Page objects hold page-specific locators and common page interactions. They are 
 
 Current tradeoff:
 
-- Some page objects still contain assertions. This was useful while building the framework, but the preferred long-term direction is to keep most assertions in test files or dedicated assertion/step helpers.
+- Some page objects still contain assertions. This was useful while building the code, but the preferred long-term direction is to keep most assertions in test files or dedicated assertion/step helpers.
 
 ### Component Objects
 
@@ -197,7 +197,7 @@ Decision rationale:
 
 ### Fixtures
 
-The framework uses Playwright fixtures to inject page objects and helpers into tests.
+The code uses Playwright fixtures to inject page objects and helpers into tests.
 
 Current tradeoff:
 
@@ -216,7 +216,7 @@ Decision rationale:
 
 Current tradeoff:
 
-- Step helpers should be used carefully. If every small action becomes a step helper, the framework becomes harder to follow. The current goal is to use steps only for business-level actions or reusable assertion blocks.
+- Step helpers should be used carefully. If every small action becomes a step helper, the code becomes harder to follow. The current goal is to use steps only for business-level actions or reusable assertion blocks.
 
 ### API Support
 
@@ -259,7 +259,7 @@ The ecommerce suite is the better candidate for CI because it targets a hosted p
 
 ## Known Improvement Areas
 
-This is a learning-focused framework, not an enterprise-grade framework yet. Current improvement targets:
+This is a learning-focused code, not an enterprise-grade code yet. Current improvement targets:
 
 - Split the single fixture registry into ecommerce and local fixture files
 - Move local API URLs fully into environment/config
@@ -272,4 +272,4 @@ This is a learning-focused framework, not an enterprise-grade framework yet. Cur
 
 ## Notes
 
-This project is intentionally used to practice automation framework decisions, tradeoffs, and refactoring. The goal is not only to automate test scenarios, but also to demonstrate growth in maintainability, readability, test isolation, and scalable test design.
+This project is intentionally used to practice automation code decisions, tradeoffs, and refactoring. The goal is not only to automate test scenarios, but also to demonstrate growth in maintainability, readability, test isolation, and scalable test design.
