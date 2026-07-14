@@ -93,7 +93,7 @@ test.describe('User can process check out', () => {
 
   })
 
-  test('test',async ({productPage,cartPage,checkoutInformationPage,checkoutOverviewPage,page}) =>{
+  test('Verify that user can process checkout with correct prices wiht multiple products',async ({productPage,cartPage,checkoutInformationPage,checkoutOverviewPage,page}) =>{
     const userCheckoutProfile = {
         firstName: "Janne",
         lastName:"Le'arch",

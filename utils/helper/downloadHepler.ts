@@ -7,7 +7,7 @@ import path from "path";
 
 export class DownloadHelper {
     
-    static async Download(page: Page, triggerButton: Locator, fileName: string, testInfo: TestInfo): Promise<string> {
+    static async download(page: Page, triggerButton: Locator, fileName: string, testInfo: TestInfo): Promise<string> {
         const downloadPromise = page.waitForEvent('download')
 
         await triggerButton.click()

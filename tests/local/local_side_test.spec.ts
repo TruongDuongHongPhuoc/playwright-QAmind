@@ -472,7 +472,7 @@ test.describe('Course module', ()=>{
 
         //open modal
         const fileName = Date.now()+"users.csv"
-        const downloadedFilePath = await DownloadHelper.Download(page,localPlayGroundPage.downloadCSVButton,fileName,testInfo)
+        const downloadedFilePath = await DownloadHelper.download(page,localPlayGroundPage.downloadCSVButton,fileName,testInfo)
         const downloadedFileContent = await readCsvFile(downloadedFilePath)
 
         await expect(downloadedFileContent).toContain("Chloe Smith")

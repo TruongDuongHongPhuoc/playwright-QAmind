@@ -7,7 +7,7 @@ import { Product } from "../models/product";
 
 export async function expectCheckoutOverviewMatchCartProducts(checkoutOverviewPage: CheckoutOverviewPage, Cartproducts: Product[])
 {
-    test.step("Verify checkout overview display match product from cart",async() => {
+    await test.step("Verify checkout overview display match product from cart",async() => {
         for(const product of Cartproducts){
             const checkoutProd = await checkoutOverviewPage.getProductCardByName(product.name)
 
@@ -19,7 +19,7 @@ export async function expectCheckoutOverviewMatchCartProducts(checkoutOverviewPa
 }
 export async function expectPricesCalculateCorrectly(checkoutOverviewPage: CheckoutOverviewPage, Cartproducts: Product[])
 {
-    test.step("Verify total prices, tax, total price after tax is calculated correctly",async() => {
+    await test.step("Verify total prices, tax, total price after tax is calculated correctly",async() => {
         let totalPrice = 0
         for(const product of Cartproducts){
             totalPrice += Number(product.totalPrice ?? 0) 

@@ -1,3 +1,4 @@
+import process from "node:process";
 import { BaseApi } from "./baseAPI";
 
 export class CourseAPI extends BaseApi{
@@ -8,10 +9,10 @@ export class CourseAPI extends BaseApi{
             description
         }
 
-        return await this.request.post("http://localhost:5000/api/courses", { data })
+        return await this.request.post(process.env.LOCAL_BASE_URL!+"/api/courses", { data })
     }
 
     async deleteCourse(id:number){
-        return await this.request.delete(`http://localhost:5000/course/${id}`)
+        return await this.request.delete(process.env.LOCAL_BASE_URL!`/course/${id}`)
     }
 }
