@@ -10,4 +10,5 @@ export class AuthAPI extends BaseApi{
 
         return await this.request.post("http://localhost:5000/api/login",{data})
     }
+
 }

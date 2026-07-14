@@ -15,4 +15,9 @@ export class APISession extends BaseApi{
         this.authAPI = new AuthAPI(requestContext)
         this.courseAPI = new CourseAPI(requestContext)
     }
+
+    async deleteCourse(CourseID:number){
+        await this.authAPI.login(process.env.LOCAL_ADMIN_EMAIL!,process.env.LOCAL_ADMIN_PASSWORD!)
+        await this.courseAPI.deleteCourse(CourseID)
+    }
 }

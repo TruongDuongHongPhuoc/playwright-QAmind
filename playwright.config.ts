@@ -51,6 +51,7 @@ export default defineConfig({
       testMatch: [
         /tests\/e2e\/.*\.spec\.ts/,
         /tests\/DDT\/.*\.spec\.ts/,
+        /tests\/step_show_case\/.*\.spec\.ts/,
       ],
       use: {
         ...devices['Desktop Chrome'],

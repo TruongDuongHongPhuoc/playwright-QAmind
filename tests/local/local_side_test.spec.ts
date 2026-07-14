@@ -11,6 +11,7 @@ import { getTestFilePath, readCsvFile } from '../../utils/helper/helper'
 import { LocalDashboardPage } from '../../pages/local_page/L_dashboard_page'
 
 
+
 test.describe('Course module', ()=>{
     test('Verify Author can create course, Admin can update and approve course, User can view approved course',async({localLoginPage,apisession,browser})=>{
         
@@ -53,7 +54,6 @@ test.describe('Course module', ()=>{
         await expect(authorTab.listCoursePage.flash).toHaveText(authorTab.listCoursePage.flashNotification.courseCreateSuccess)
         
         const authorTabCourseInstance = await authorTab.listCoursePage.getCourseRowBy(courseTitle,courseDescription)
-        const authorCourseID = await authorTabCourseInstance.getCourseID()
         await expect(authorTabCourseInstance.root).toBeVisible()
 
         // Admin Open Course List
@@ -61,6 +61,7 @@ test.describe('Course module', ()=>{
         
         // Edit course description
         const adminTabCourseInstance = await adminTab.listCoursePage.getCourseRowBy(courseTitle,courseDescription)
+        const createdCourseID = await adminTabCourseInstance.getCourseID()
         await adminTabCourseInstance.editButton.click()
 
         const courseDescriptionEdited = "abc123"
@@ -94,15 +95,14 @@ test.describe('Course module', ()=>{
 
         //tear down
         ////init API tear down
-        await apisession.authAPI.login(process.env.LOCAL_ADMIN_EMAIL!,process.env.LOCAL_ADMIN_PASSWORD!)
-        await apisession.courseAPI.deleteCourse(authorCourseID)
+        await apisession.deleteCourse(createdCourseID)
 
         await authorTab.close()
         await adminTab.close()
         await readerTab.close()
     })
 
-    test("Verify Admin can reject Author course request",async ({auth,localDashboardPage,localCreateCoursePage,page, localApprovalPage,localCourseListPage})=>{
+    test("Verify Admin can reject Author course request",async ({apisession,auth,localDashboardPage,localCreateCoursePage,page, localApprovalPage,localCourseListPage})=>{
         // Login as Author
         await auth.loginAsAuthorOnLocal()
 
@@ -139,6 +139,7 @@ test.describe('Course module', ()=>{
         await localDashboardPage.navigateToCoursePage()
 
         const rejectedCourse = await localCourseListPage.getCourseRowBy(course.title,course.description)
+        const rejectedCourseID = await rejectedCourse.getCourseID()
         await expect(rejectedCourse.root).toBeVisible()
         await expect(rejectedCourse.status).toHaveText("Rejected")
 
@@ -150,7 +151,9 @@ test.describe('Course module', ()=>{
         await auth.loginAsUserOnLocal()
         await localDashboardPage.navigateToCoursePage()
         await expect(rejectedCourse.root).not.toBeVisible()
-    
+        
+        //Tear down
+        await apisession.deleteCourse(rejectedCourseID)
     })
 
     test("Verify Admin can delete course", async({apisession, localLoginPage,auth, localDashboardPage, localCourseListPage, page})=>{
