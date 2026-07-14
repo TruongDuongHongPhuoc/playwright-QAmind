@@ -13,17 +13,6 @@ This repository is not only a collection of automated tests. It is also a code d
 
 The main goal is to demonstrate how a QA automation project can evolve from simple Playwright tests into a more organized structure with reusable objects, environment separation, API support, and readable test flows.
 
-Some decisions in this project are intentionally pragmatic because the applications under test are practice applications. For example, the code uses CSS selectors in many places because stable `data-testid` attributes are not consistently available. The README documents these tradeoffs so reviewers can understand the reasoning behind the current implementation and the planned direction for improvement.
-
-## Tech Stack
-
-- Playwright Test
-- TypeScript
-- Node.js
-- dotenv
-- cross-env
-- GitHub Actions
-
 ## Project Structure
 
 ```text
@@ -58,13 +47,6 @@ The code separates application paths from environment domains.
 
 This keeps page objects independent from the execution environment.
 
-Decision rationale:
-
-- Page objects should navigate by application path, not by hard-coded domain.
-- Playwright projects should decide which domain/base URL is used.
-- Environment files should hold values that change between local, hosted, and CI execution.
-- This makes it easier to add another environment later without rewriting page objects.
-
 Example `.env.prod`:
 
 ```env
@@ -85,7 +67,6 @@ LOCAL_USER_EMAIL=user@test.com
 LOCAL_USER_PASSWORD=123456
 ```
 
-Environment files are intentionally ignored by Git.
 
 ## Playwright Projects
 
@@ -95,12 +76,6 @@ The test suite is split into Playwright projects:
 - `local`: runs tests against the local practice app.
 
 This allows different base URLs, test groups, and execution commands for each domain.
-
-Decision rationale:
-
-- The ecommerce app and local practice app are different domains with different setup needs.
-- Keeping them as separate Playwright projects prevents local-only tests from accidentally running against the hosted ecommerce app.
-- Project-level `baseURL` keeps test commands simple and makes CI configuration clearer.
 
 ## Install
 
@@ -181,71 +156,25 @@ The project currently uses:
 
 Page objects hold page-specific locators and common page interactions. They are used to keep tests readable and avoid repeating low-level selector logic across test files.
 
-Current tradeoff:
-
-- Some page objects still contain assertions. This was useful while building the code, but the preferred long-term direction is to keep most assertions in test files or dedicated assertion/step helpers.
-
 ### Component Objects
 
 Component objects are used for repeated UI blocks such as product cards, cart product cards, headers, and course rows.
-
-Decision rationale:
-
-- Repeated UI structures should be modeled once.
-- Tests should work with business concepts like product cards or course rows instead of raw locators.
-- If the component UI changes, the update should happen in one component class rather than many tests.
 
 ### Fixtures
 
 The code uses Playwright fixtures to inject page objects and helpers into tests.
 
-Current tradeoff:
-
-- The project currently has one shared fixture registry. This is simple and easy to understand for a learning project.
-- As the project grows, the intended direction is to split fixtures by domain, for example `ecommerce.fixture.ts` and `local.fixture.ts`.
-
 ### Step Helpers
 
 The `steps/` folder contains reusable workflow or assertion steps for higher-level test readability.
-
-Decision rationale:
-
-- Some flows, especially checkout, contain repeated business actions and validations.
-- Step helpers make tests read closer to user behavior.
-- They also create cleaner Playwright reports when implemented with `test.step`.
-
-Current tradeoff:
-
-- Step helpers should be used carefully. If every small action becomes a step helper, the code becomes harder to follow. The current goal is to use steps only for business-level actions or reusable assertion blocks.
 
 ### API Support
 
 The `API/` layer is used for setup and teardown in local app scenarios.
 
-Decision rationale:
-
-- UI tests should not always create all preconditions through the UI.
-- API setup can make tests faster and more focused.
-- API teardown helps keep test data isolated between runs.
-
-Current tradeoff:
-
-- Some API URLs still need to be moved fully into environment/config. This is listed as a known improvement because the UI side already follows the newer multi-env structure.
-
 ## Locator Strategy
 
-The project uses CSS selectors heavily because the practice applications do not consistently expose stable `data-testid` attributes.
-
-Preferred locator order for future improvement:
-
-1. `getByRole`, `getByLabel`, and other user-facing Playwright locators
-2. Stable IDs or `data-testid`
-3. CSS selectors when stable semantic selectors are not available
-4. XPath only for relationship-based lookup that is difficult to express clearly in CSS
-
-Avoid selectors based only on styling classes, generic `div` structure, icon-only buttons, or element position where possible.
-
-Decision rationale:
+The project uses CSS & Xpath selectors heavily because knowledge can be reuse in other framework not just playwright:
 
 - CSS selectors are portable across multiple automation tools, not only Playwright.
 - For this practice project, CSS was often the most available option.
@@ -262,11 +191,7 @@ The ecommerce suite is the better candidate for CI because it targets a hosted p
 This is a learning-focused code, not an enterprise-grade code yet. Current improvement targets:
 
 - Split the single fixture registry into ecommerce and local fixture files
-- Move local API URLs fully into environment/config
-- Make multi-role session cleanup failure-safe with `try/finally` or managed fixtures
 - Replace old `EMAIL` and `PASSWORD` variables with domain-specific names
-- Improve locator stability with role-based locators or `data-testid`
-- Add TypeScript type checking, linting, and formatting scripts
 - Add cleaner API setup/teardown helpers
 - Improve CI so local tests start their dependent application automatically
 
