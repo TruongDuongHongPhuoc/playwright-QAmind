@@ -8,7 +8,8 @@
   "description": "",
   "devDependencies": {
     "@playwright/test": "^1.59.1",
-    "@types/node": "^25.9.4"
+    "@types/node": "^25.9.4",
+    "typescript": "^5.9.3"
   },
   "dependencies": {
     "cross-env": "^10.1.0",
@@ -18,6 +19,7 @@
     "parser": "^0.1.4"
   },
   "scripts": {
+    "typecheck": "tsc --noEmit",
     "test:ecommerce": "cross-env ENV=prod playwright test --project=ecommerce",
     "test:ecommerce:ui": "cross-env ENV=prod playwright test --project=ecommerce --ui",
     "test:local": "cross-env ENV=local playwright test --project=local",

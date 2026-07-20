@@ -1,7 +1,6 @@
 import { expect } from "@playwright/test";
-import { ProductPage } from "../pages/product_page";
 import { test } from "@playwright/test";
-import { CheckoutOverviewPage } from "../pages/CheckOutOverview";
+import { CheckoutOverviewPage } from "../pages/CheckoutOverview";
 import { Product } from "../models/product";
 
 
